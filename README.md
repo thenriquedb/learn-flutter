@@ -7,6 +7,7 @@ A repo dedicated to learning and understanding app development with Flutter and 
 
 ##### 🚀 Projetcts
 - [Tic Tac Toe](tictactoe)
+- [My finances](my-finances) (In progress)
 
 ##### 🔗 Inspirations
 - [Flutterando](https://www.youtube.com/user/jacobaraujo7)
