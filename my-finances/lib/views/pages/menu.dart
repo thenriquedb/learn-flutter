@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fluxo/views/cadGasto.dart';
-import 'package:fluxo/views/cadReceita.dart';
-import 'package:fluxo/views/cadTipoGasto.dart';
-import 'package:fluxo/views/cadTipoReceita.dart';
-import 'package:fluxo/views/principal.dart';
-import 'package:fluxo/views/relatorios.dart';
+import 'package:fluxo/views/pages/cadGasto.dart';
+import 'package:fluxo/views/pages/cadReceita.dart';
+import 'package:fluxo/views/pages/cadTipoGasto.dart';
+import 'package:fluxo/views/pages/cadTipoReceita.dart';
+import 'package:fluxo/views/pages/principal.dart';
+import 'package:fluxo/views/pages/relatorios.dart';
 
 //indice de seleção da tela
 int _selectedIndex = 0;

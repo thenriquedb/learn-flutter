@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluxo/views/login.dart';
+import 'package:fluxo/views/pages/login.dart';
 
 class Splash extends StatefulWidget {
   @override

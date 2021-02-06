@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluxo/views/menu.dart';
+import 'package:fluxo/views/pages/menu.dart';
 
 class Login extends StatefulWidget {
   @override
