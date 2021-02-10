@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluxo/views/pages/menu.dart';
+import 'package:fluxo/views/widgets/custom_button.dart';
+import 'package:fluxo/views/widgets/custom_text_field.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -36,36 +38,23 @@ class _LoginState extends State<Login> {
               )),
           Container(
             padding: EdgeInsets.all(10),
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'User Name',
-              ),
+            child: CustomTextField(
+              nameController,
+              labelText: 'Email',
+              hintText: 'youremail@email.com',
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: TextField(
-              obscureText: true,
-              controller: passwordController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-              ),
-            ),
-          ),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: CustomTextField(
+                passwordController,
+                labelText: 'Senha',
+                hintText: '******',
+                obscureText: true,
+              )),
           Container(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: RaisedButton(
-              child: Text(
-                "Login",
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.amber,
-              padding: const EdgeInsets.all(20),
-              onPressed: _onClickLogin,
-            ),
+            child: CustomButton(_onClickLogin, label: 'Login'),
           ),
         ],
       ),

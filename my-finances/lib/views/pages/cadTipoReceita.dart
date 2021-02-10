@@ -95,13 +95,14 @@ class _CadTipoReceitaState extends State<CadTipoReceita> {
     setState(() {
       try {
         _listViewTipoReceita = _tiposReceita
-            .map((_data) => CustomCard(_data.id.toInt(), _data.nome.toString(),
-                _data.descricao.toString(), this._deleteTipoReceita))
+            .map((_data) => CustomCard(
+                this._deleteTipoReceita,
+                _data.id.toInt(),
+                _data.nome.toString(),
+                _data.descricao.toString()))
             .toList();
       } catch (_) {
         print("Não foi possível adicionar ao carrinho!");
-        /*Toast.show("Não foi possível adicionar ao carrinho!", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);*/
       }
     });
   }

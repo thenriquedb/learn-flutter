@@ -10,8 +10,8 @@ class _PrincipalState extends State<Principal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Principal"),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
+        title: Text("Finanças pessoais"),
       ),
     );
   }

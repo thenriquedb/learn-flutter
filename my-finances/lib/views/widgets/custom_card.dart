@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
@@ -8,11 +6,15 @@ class CustomCard extends StatelessWidget {
   final String description;
   final Function onPressed;
 
-  CustomCard(this.id, this.title, this.description, this.onPressed);
+  CustomCard(
+    this.onPressed, {
+    this.id,
+    this.title,
+    this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return (Card(
         elevation: 3,
         child: Container(

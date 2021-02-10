@@ -11,6 +11,22 @@ class CadTipoGasto extends StatefulWidget {
 }
 
 class _CadTipoGastoState extends State<CadTipoGasto> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+
+  //lista de tipo de gastos
+  List<TipoGasto> _expenseTypes = List();
+  List<Widget> _listExpenseTypes = List<Widget>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      _loadExpenseTypes();
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -19,54 +35,14 @@ class _CadTipoGastoState extends State<CadTipoGasto> {
       ),
       body: Column(
         children: <Widget>[
-          //card para inserção
-          Card(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Nome:"),
-                      TextField(
-                        controller: _tecNome,
-                      ),
-                      Text("Descrição:"),
-                      TextField(
-                        controller: _tecDescricao,
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 60,
-                  height: 60,
-                  child: ButtonTheme(
-                    height: 60.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        _insereTipoGasto();
-                      },
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(12.0)),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                      color: Colors.blue,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
+          _buildForm(),
           Divider(
             height: 10,
           ),
           Text("::Dados::"),
           Expanded(
             child: Card(
-              child: ListView(children: _listViewTipoGasto),
+              child: ListView(children: _listExpenseTypes),
             ),
           )
         ],
@@ -74,63 +50,88 @@ class _CadTipoGastoState extends State<CadTipoGasto> {
     );
   }
 
-  //controllers dos texts fields
-  TextEditingController _tecNome = TextEditingController();
-  TextEditingController _tecDescricao = TextEditingController();
-
-  //lista de tipo de gastos
-  List<TipoGasto> _tiposGasto = List();
-
-  //listView de tipos de gastos
-  List<Widget> _listViewTipoGasto = List<Widget>();
+  _buildForm() {
+    return <Widget>[
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("Nome:"),
+            TextField(
+              controller: _nameController,
+            ),
+            Text("Descrição:"),
+            TextField(
+              controller: _descriptionController,
+            )
+          ],
+        ),
+      ),
+      Card(
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 60,
+              height: 60,
+              child: ButtonTheme(
+                height: 60.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    _insereTipoGasto();
+                  },
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(12.0)),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  color: Colors.blue,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    ];
+  }
 
   /**
    * Método responsável por construir o listview
    */
-  _setListView() async {
-    //busca lista de objetos Gasto do BD
-    _tiposGasto = await CTipoGastos().getAllList();
+  _loadExpenseTypes() async {
+    _expenseTypes = await CTipoGastos().getAllList();
 
-    //monta listView já na treade de visualização de forma dinâmica
     setState(() {
       try {
-        _listViewTipoGasto = _tiposGasto
-            .map((_data) => CustomCard(_data.id.toInt(), _data.nome.toString(),
-                _data.descricao.toString(), this._deleteTipoGasto))
+        _listExpenseTypes = _expenseTypes
+            .map((_data) => CustomCard(
+                  this._deleteTipoGasto,
+                  id: _data.id.toInt(),
+                  title: _data.nome.toString(),
+                  description: _data.descricao.toString(),
+                ))
             .toList();
       } catch (_) {
         print("Não foi possível adicionar ao carrinho!");
-        /*Toast.show("Não foi possível adicionar ao carrinho!", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.CENTER);*/
       }
     });
   }
 
   _insereTipoGasto() {
-    TipoGasto g = TipoGasto(null, _tecNome.text, _tecDescricao.text);
+    TipoGasto g =
+        TipoGasto(null, _nameController.text, _descriptionController.text);
     CTipoGastos().insert(g);
+
     setState(() {
-      _setListView();
+      _loadExpenseTypes();
     });
   }
 
   _deleteTipoGasto(int id) {
     CTipoGastos().deletar(id);
-    setState(() {
-      _setListView();
-    });
-  }
 
-  /**
-   * Método usado para inicialiar objetos e elementos ao criar a tela
-   */
-  @override
-  void initState() {
-    super.initState();
-
-    //gera a listagem de elementos na thread de visão(de forma dinâmica)
     setState(() {
-      _setListView();
+      _loadExpenseTypes();
     });
   }
 }

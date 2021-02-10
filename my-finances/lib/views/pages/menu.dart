@@ -22,17 +22,15 @@ List<Widget> _stOptions = <Widget>[
 ];
 
 class Navegar extends StatefulWidget {
-  int _opcao;
+  int _selectOption;
 
-  //contrutor passando o indice da tela selecionada
-  Navegar(this._opcao);
+  Navegar(this._selectOption);
 
   @override
-  _NavegarState createState() => _NavegarState(this._opcao);
+  _NavegarState createState() => _NavegarState(this._selectOption);
 }
 
 class _NavegarState extends State<Navegar> {
-  //construtor
   _NavegarState(this._opcao);
   int _opcao;
 
@@ -43,11 +41,6 @@ class _NavegarState extends State<Navegar> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Fluxo"),
-        backgroundColor: Colors.blue,
-      ),
-
       //corpo da aplicação, aqui são setadas as telas
       body: _stOptions.elementAt(_selectedIndex),
 
@@ -56,38 +49,33 @@ class _NavegarState extends State<Navegar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Principal'),
+            label: 'Principal',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
-            title: Text('Receitas'),
+            label: 'Receitas',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money_off),
-            title: Text('Gastos'),
+            label: 'Gastos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.attach_money),
-            title: Text('Tipos Receitas'),
+            label: 'Tipos Receitas',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money_off),
-            title: Text('Tipo Gastos'),
+            label: 'Tipo Gastos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            title: Text('Relatorios'),
+            label: 'Relatorios',
           ),
         ],
-
         unselectedItemColor: Colors.grey,
-
+        selectedItemColor: Colors.blue,
         currentIndex: _selectedIndex,
-
-        selectedItemColor: Colors.orange,
-        //greenAccent,
-        onTap:
-            _onItemTapped, //chama o métdodo onItemTapped ao clicar no botao do BTNNavigation
+        onTap: _onItemTapped,
       ),
     );
   }
